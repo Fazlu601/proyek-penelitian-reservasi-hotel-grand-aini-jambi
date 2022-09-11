@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>jQuery XSAlert - jQuery XSAlert Beautiful Responsive Modal Dialog Plugin Examples</title>
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<style>
+  html,* { font-family: 'Inter'; box-sizing: border-box; }
+body { background-color: #fafafa; line-height:1.6;}
+.lead { font-size: 1.5rem; font-weight: 300; }
+.container { margin: 150px auto; max-width: 960px; }
+.btn { padding: 1.25rem; border: 0; border-radius: 3px; background-color: #4F46E5; color: #fff; cursor: pointer; }
+.output { background: #E5E7EB; padding: 2rem 1rem; border-radius: 5px; margin: 2rem auto; font-size: 1.5rem; }
+select {
+      -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    border-color: #6b7280;
+    border-width: 1px;
+    border-radius: 0;
+    padding-top: 0.5rem;
+    padding-right: 0.75rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    min-width: 300px;
+}
+</style>
+<link id="theme-name" rel="stylesheet" href="src/themes/light-theme.css">
+</head>
+
+<body>
+<div class="container">
+  <h1>jQuery XSAlert - jQuery XSAlert Beautiful Responsive Modal Dialog Plugin Examples</h1>
+  <div id="carbon-block"></div>
+<div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2783044520727903"
+     crossorigin="anonymous"></script>
+<!-- jQuery_demo -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-2783044520727903"
+     data-ad-slot="2780937993"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+  <p class="lead">A simple but highly customizable plugin for creating beautiful, responsive, themeable Alert/Confirm/Prompt dialog boxes with pretty CSS3 animations.</p>
+  <h3>Switch Themes Here</h3>
+  <select id="theme-selector">
+    <option value="" selected disabled>Select a Theme</option>
+    <option  value="light-theme">Light Theme (Default)</option>
+    <option  value="dark-theme">Dark Theme</option>
+    <option  value="blue-theme">Blue Theme</option>
+    <option  value="red-theme">Red Theme</option>
+    <option  value="brown-theme">Brown Theme</option>
+    <option  value="purple-theme">Purple Theme</option>
+    <option  value="flat-theme">Flat Theme</option>
+ </select>
+ <h3>Basic Demos</h3>
+ <button id="basic-alert" class="btn">Alert</button> <button id="basic-confirm" class="btn">Confirm</button> <button id="basic-prompt" class="btn">Prompt</button>
+ <h3>Advanced Usages</h3>
+ <button id="auto-close" class="btn">Auto Close</button>
+ <button id="bg-img" class="btn">Background Image</button>
+ <button id="top-right" class="btn">Top Right</button>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="src/xsalert.js"></script>
+<script>
+  $(function(){
+    $('#theme-selector').change(function () {
+        var theme =  $('#theme-selector').val();
+        $("#theme-name").attr('href', 'src/themes/'+theme+'.css');
+    })
+    $('#basic-alert').on('click', function(){
+       XSAlert({
+         title: "Ouch!",
+         message: "Something's just not right at the moment",
+         icon: 'error',
+         hideCancelButton: true,
+         footer: '<a href="#">Click here for more info</a>'
+      })
+    })
+    $('#bg-img').on('click', function(){
+        XSAlert({
+         title: "Wow, I've got a custom background image 🤩",
+         hideCancelButton: true,
+         overlayImageURL: 'https://source.unsplash.com/Ta5II09WSrA/2400x1600'
+      })
+    })
+    $('#top-right').on('click', function(){
+        XSAlert({
+   title: "Hey, I'm here! ↗️",
+   position: 'top-right',
+   hideCancelButton: true
+})
+    })
+    $('#basic-confirm').on('click', function(){
+        XSAlert({
+         title: 'Hey you',
+         message: "What's your favorite drink? 👇",
+         okButtonText: '🍷 Wine',
+         cancelButtonText: "🚫 I don't drink",
+         thirdButtonText: "🍹 Tropical Drink",
+         closeOnOutsideClick: true,
+
+       }).then((result) => {
+         if(result == 'ok') { XSAlert({ message: 'Your fav drink is '+$('#xs-ok-btn').text(), backgroundColor: '#e57373' })
+         } else if(result == 'third') { XSAlert({ message: 'Your fav drink is '+$('#xs-third-btn').text(), backgroundColor: '#ffc107' }) }
+      })
+    })
+    $('#basic-prompt').on('click', function(){
+       XSAlert({
+         title: "Hi there 👋",
+         message: "What's your name",
+         inputType: 'text',
+         inputPlaceholder: 'Ex: Frank Eno',
+         cancelButtonText: 'Forget it'
+       }).then((result) => {
+         if(result == 'ok'){
+            if($('#xs-input').val() == '') { XSAlert({ message: "How come you don't have a name? 🤔"})
+            } else { XSAlert({ title: 'Nice!', message: 'Your name is "'+$('#xs-input').val()+'"' }) }
+         } else if(result == 'cancel' || result == 'outside'){ XSAlert({ message: "It's ok if you don't wanna tell me your name 😉" }) }
+      })
+    })
+    $('#auto-close').on('click',function(){
+       XSAlert({
+   title: "Hi there 😎",
+   message: "Hold on, I'm gonna close in 2 seconds...",
+   autoCloseTimer: 2000,
+   hideProgressBar: false, // 'true' to hide
+   hideProgressIcon: false, // 'true' to hide
+   hideOkButton: true,
+   hideCancelButton: true
+   // You can also perform an action after cllosing the alert
+ }).then((result) => {
+   if(result == 'autoClosed') {
+      XSAlert({message: 'Alert has closed automatically!', hideCancelButton: true, closeOnOutsideClick: true })
+   }
+})
+    })
+   });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1VDDWMRSTH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1VDDWMRSTH');
+</script>
+<script>
+try {
+  fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
+    return true;
+  }).catch(function(e) {
+    var carbonScript = document.createElement("script");
+    carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
+    carbonScript.id = "_carbonads_js";
+    document.getElementById("carbon-block").appendChild(carbonScript);
+  });
+} catch (error) {
+  console.log(error);
+}
+</script>
+</body>
+</html>
